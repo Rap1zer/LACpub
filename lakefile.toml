@@ -12,7 +12,10 @@ git = "https://github.com/leanprover-community/mathlib4"
 rev = "master"
 
 [[lean_lib]]
-name = "Text"   
+name = "Text"
+
+[[lean_lib]]
+name = "Proofs" 
 
 [[lean_lib]]
 name = "LACNotes" 
