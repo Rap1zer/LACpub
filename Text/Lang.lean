@@ -169,7 +169,7 @@ If you remember some algebra from COMP2065 you should recognize that `∪` is a 
 
 ## Concatenation
 
-Another important operation is *concatenation* of languages, informally we say that given `L₁ L₂ : Lang Sigma` there concatention `L₁ ⋅ L₂ : Lang Sigma` is the set of words that can be formed by concatening (append) a word from `L₁` and a word from L₂. More precisely we define
+Another important operation is *concatenation* of languages, informally we say that given `L₁ L₂ : Lang Sigma` their concatention `L₁ ⋅ L₂ : Lang Sigma` is the set of words that can be formed by concatening (append) a word from `L₁` and a word from L₂. More precisely we define
 ```anchor concat_def
 L₁ ⋅ L₂ = { w ++ v | (w ∈ L₁)(v ∈ L₂) }
 ```
@@ -196,7 +196,7 @@ It is important not to confuse `∅` (the empty language) and `ε` (the language
 ## Star
 
 Finally we look at the star operation written `L * : Lang Sigma` for `L : Lang Sigma`. The language `L *` is the set of words that we can obtain by repeatedly concatenating words from `L`. Using `*` we can construct infinite languages from finite ones. So for example
-`{ a }* = { [] , [a], [a,a], [a,a,a], ...}`.
+`{ [a] }* = { [] , [a], [a,a], [a,a,a], ...}`.
 
 To define `L *` formally we first define the `n`th power of a language, that is give `L : Lang Sigma` and `n : ℕ` we define `L^n : Lang Sigma` by primitive recursion :
 ```anchor lpow_zero
