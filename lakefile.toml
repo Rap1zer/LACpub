@@ -1,10 +1,5 @@
-name = "LACnotes"
-defaultTargets = ["lacnotes"]
-
-[[require]]
-name = "verso"
-git = "https://github.com/leanprover/verso"
-rev = "main"
+name = "LAC"
+defaultTargets = ["Lectures", "Proofs"]
 
 [[require]]
 name = "mathlib"
@@ -12,17 +7,7 @@ git = "https://github.com/leanprover-community/mathlib4"
 rev = "master"
 
 [[lean_lib]]
-name = "Text"
-
-[[lean_lib]]
 name = "Proofs" 
 
 [[lean_lib]]
 name = "Lectures" 
-
-[[lean_lib]]
-name = "LACNotes" 
-
-[[lean_exe]]
-name = "lacnotes"
-root = "Main"
