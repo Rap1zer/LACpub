@@ -5,9 +5,6 @@ class Star (α : Type u) where
 
 postfix:max "★" => Star.star
 
--- define a notation scope
-declare_syntax_cat kleene
-
 -- define the notations *inside a scoped block*
 scoped notation "∅" => (0 : _)
 scoped notation "ε" => (1 : _)
