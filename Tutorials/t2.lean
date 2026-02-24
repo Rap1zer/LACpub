@@ -62,6 +62,12 @@ L₁ : hailing a cab. All words over SigmaABC containing "cab"
 L₂ : powers of 4, words over SigmaBin that are a power of 4
 L₁ ⋅ L₂ : the concatenation of L₁ and L₂
 -/
+abbrev L₁ : DFA SigmaABC
+:= {
+  Q := SigmaABC
+  s := 
+}
+
 
 /-
 A nondeterministic automaton extends a deterministic automaton
