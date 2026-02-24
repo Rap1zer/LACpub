@@ -24,7 +24,7 @@ namespace ex_div3
 
 /-
 Define a DFA that recognizes all binary numbers
-in big endian (most significant bit at the end)
+in little endian (most significant bit at the end)
 that are divisible by 3:
 -/
 abbrev div3 : Lang SigmaBin
