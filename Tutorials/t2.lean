@@ -62,10 +62,47 @@ L₁ : hailing a cab. All words over SigmaABC containing "cab"
 L₂ : powers of 4, words over SigmaBin that are a power of 4
 L₁ ⋅ L₂ : the concatenation of L₁ and L₂
 -/
+inductive SigmaCabStates : Type
+| q0 -- nothing matched
+| q1 -- seen c
+| q2 -- seen ca
+| q3 -- seen cab
+deriving Fintype, DecidableEq
+open SigmaCabStates
+
 abbrev L₁ : DFA SigmaABC
 := {
-  Q := SigmaABC
-  s := 
+  Q := SigmaCabStates
+  s := q0
+  F := {q3}
+  δ := λ  | q0, c => q1
+          | q0, _ => q0
+          | q1, c => q1
+          | q1, a => q2
+          | q1, b => q0
+          | q2, c => q1
+          | q2, a => q0
+          | q2, b => q3
+          | q3, _ => q3
+}
+
+inductive L2_states : Type
+| start | seen1_odd | seen1_even | fail -- fail means more than one 1 or an odd 1
+deriving Fintype, DecidableEq
+open L2_states
+
+abbrev L₂ : DFA SigmaBin
+:= {
+  Q := L2_states
+  s := start
+  F := { seen1_even }
+  δ := λ  | start, 1 => seen1_even
+          | start, 0 => fail
+          | seen1_odd, 1 => fail
+          | seen1_odd, 0 => seen1_even
+          | seen1_even, 1 => fail
+          | seen1_even, 0 => seen1_odd
+          | fail, _ => fail
 }
 
 
