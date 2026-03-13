@@ -67,12 +67,12 @@ Proof that L₁ is not regular (in English).
 
   Let's take the string a^p ++ b^p ++ c^(2p). It is at least of length p and it is part of L₁.
 
-  According to the pumping lemma, the string can be split into x, y, and z, where |xy| <= p.
-  y is the section of the string to be pumped (cannot be the empty string).
+  According to the pumping lemma, the string can be split into x, y, and z.
+  y is the section of the string to be pumped.
   Since |xy| <= p and the string begins with p occurrences of "a", the substring y must consist entirely of "a"s.
 
-  However, pumping changes the number of "a" while keeping the number of "b"s and "c"s. That means the number of "c"s
-  is no longer equal to the number of "a"s plus "b"s.
+  However, if we pump with m=0, we remove at least one "a" while keeping the number of "b"s and "c"s.
+  That means the number of "c"s is no longer equal to the number of "a"s plus "b"s.
 
   Therefore, a^p ++ b^p ++ c^(2p) fails the pumping lemma.
   Hence, L₁ is not a regular language.
@@ -95,11 +95,11 @@ Proof that L₂ is not regular (in English).
 
     Let's choose the string c^p ++ b^(2p) ++ a^(4p). It is at least of length p and it is part of L₂.
 
-    According to the pumping lemma, the string can be split into x, y, and z, where |xy| <= p.
-    y is the section of the string to be pumped (cannot be the empty string).
+    According to the pumping lemma, the string can be split into x, y, and z.
+    y is the section of the string to be pumped.
     Since |xy| <= p and the string begins with p occurrences of "c", the substring y must consist entirely of "c"s.
 
-    If we pump the substring y (which is just "c"s), then the number of "c"s changes while the number
+    If we pump the substring y with m = 2 (so we replace y by y^2), then the number of "c"s changes while the number
     of "b"s and "a"s stays the same. Therefore the equality w.count b = 2*(w.count c) is no longer true.
 
     Therefore, c^p ++ b^2p ++ a^4p fails the pumping lemma.
