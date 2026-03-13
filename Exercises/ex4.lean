@@ -68,23 +68,13 @@ Proof that L₁ is not regular (in English).
   Let's take the string a^p ++ b^p ++ c^2p. It is at least of length p and it is part of L₁.
 
   According to the pumping lemma, the string can be split into three parts: x y^i z
-  y is the section of the string to be pumped (cannot be the empty string). There are 5
-  different ways it could have chosen y:
-  1)  It can choose to pump just "a"s. If the pumping string is all "a"s then there will be more "a"s than "b"s,
-      which doesn't belong in L₁.
-  2)  It can choose to pump just "b"s. If the pumping string is all "b"s then there will be more "b"s than "a"s,
-      which doesn't belong in L₁.
-  3)  It can choose to pump just "c"s. If the pumping string is all "c"s then there will be more "c"s than
-      the number of "a"s and "b"s combined, which doesn't belong in L₁.
-  4)  It can choose to pump a combination of "a"s and "b"s. Then the string will have a different sequence that's
-      not part of L₁.
-      (e.g. let y be "ab", then aaababab... does not belong in the language)
-  5)  It can choose to pump a combination of "b"s and "c"s. Then the string will have a different sequence that's
-      not part of L₁.
-      (e.g. let y be "bc", then abcbcbc... does not belong in the language)
+  y is the section of the string to be pumped (cannot be the empty string).
+  Since |xy| <= p and the string begins with p occurrences of "a", the substring y must consist entirely of "a"s.
 
-  a^p ++ b^p ++ c^2p fails the pumping lemma in all the 5 possible cases.
-  Therefore, L₁ is not a regular language.
+  However, if the pumping string is all "a"s then there will be more "a"s than "b"s, which doesn't belong in L₁.
+
+  Therefore, a^p ++ b^p ++ c^2p fails the pumping lemma.
+  Hence, L₁ is not a regular language.
 -/
 
 theorem ex2 : ¬ ∃ A : DFA SigmaABC, L A = L₂
@@ -97,7 +87,7 @@ Proof that L₂ is not regular (in English).
     L₂ contains all strings w where:
     - the number of "a"s is twice the number of "b"s
     - the number of "b"s is twice the number of "c"s
-    This also means the number of "a"s is 4 times the number of "c"s.
+    This forms a geometric ratio where the number of "a"s is 4 times the number of "c"s.
 
     As explained in q1, we have to find a string in L₂ of at least pumping length p that fails the
     pumping lemma.
@@ -105,19 +95,12 @@ Proof that L₂ is not regular (in English).
     Let's choose the string c^p ++ b^2p ++ a^4p. It is at least of length p and it is part of L₂.
 
     According to the pumping lemma, the string can be split into three parts: x y^i z
-    y is the section of the string to be pumped (cannot be the empty string). There are 5
-    different ways it could have chosen y:
-    1)  It can choose to pump just "a"s. However, this means the number of "a"s will be over twice the number of "b"s,
-        which doesn't belong in L₂.
-    2)  It can choose to pump just "a"s. However, this means the number of "b"s will be over half the number of "a"s,
-        which doesn't belong in L₂.
-    3)  It can choose to pump just "c"s. However, this means the number of "c"s will be over half the number of "b"s,
-        which doesn't belong in L₂.
-    4)  It can choose to pump a combination of "a"s and "b"s. However, that will break the geometric ratio between
-        the occurrences of each character.
-    5)  It can choose to pump a combination of "b"s and "c"s. However, that will break the geometric ratio between
-        the occurrences of each character.
+    y is the section of the string to be pumped (cannot be the empty string).
+    Since |xy| <= p and the string begins with p occurrences of "c", the substring y must consist entirely of "c"s.
 
-    c^p ++ b^2p ++ a^4p fails the pumping lemma in all 5 possible cases.
-    Therefore, L₂ is not a regular language.
+    If we pump the substring y (which is just "c"s), it will break the geometric ratio. The number
+    of "c"s will be over half the number of "b"s, which means it won't be part of L₂.
+
+    Therefore, c^p ++ b^2p ++ a^4p fails the pumping lemma.
+    Hence, L₂ is not a regular language.
 -/
