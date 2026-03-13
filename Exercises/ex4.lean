@@ -55,7 +55,35 @@ theorem ex1 : ¬ ∃ A : DFA SigmaABC, L A = L₁
 := sorry
 /-
 Proof that L₁ is not regular (in English).
+  We can use the pumping lemma to provide a proof by contradiction that L₁ is not regular.
 
+  L₁ describes a set of strings where "a" is repeated n times, "b" is repeated m times,
+  and "c" is repeated a number of times equal to n + m.
+
+  If a language is regular, then for all strings that are length of at least p, there will be a
+  section of the string that can be pumped / repeated and still belong in the language. Therefore,
+  if we want to prove L₁ is NOT a regular language, then we have to find a string in L₁ of at least
+  length p that fails the pumping lemma.
+
+  Let's take the string a^p ++ b^p ++ c^2p. It is at least of length p and it is part of L₁.
+
+  According to the pumping lemma, the string can be split into three parts: x y^i z
+  y is the section of the string to be pumped (cannot be the empty string). There are 5
+  different ways it could have chosen y:
+  1)  It can choose to pump all the "a"s. If the pumping string is all "a"s then there will be more "a"s than "b"s,
+      which doesn't belong in L₁.
+  2)  It can choose to pump all the "b"s. If the pumping string is all "b"s then there will be more "b"s than "a"s,
+      which doesn't belong in L₁.
+  3)  It can choose to pump all the "c"s. If the pumping string is all "c"s then there will be more "c"s than
+      the number of "a"s and "b"s combined, which doesn't belong in L₁.
+  4)  It can choose to pump a combination of "a"s and "b"s. Then the string will have a different sequence that's
+      not part of L₁.
+      (e.g. let y be "ab", then aaababab... does not belong in the language)
+  5)  It can choose to pump a combination of "b"s and "c"s. Then the string will have a different sequence that's
+      not part of L₁.
+      (e.g. let y be "bc", then abcbcbc... does not belong in the language)
+
+  Therefore, a^p ++ b^p ++ c^2p that belongs in a^p ++ b^p ++ c^2p can't be pumped.
 -/
 
 theorem ex2 : ¬ ∃ A : DFA SigmaABC, L A = L₂
