@@ -65,15 +65,16 @@ Proof that L₁ is not regular (in English).
   if we want to prove L₁ is NOT a regular language, then we have to find a string in L₁ of at least
   length p that fails the pumping lemma.
 
-  Let's take the string a^p ++ b^p ++ c^2p. It is at least of length p and it is part of L₁.
+  Let's take the string a^p ++ b^p ++ c^(2p). It is at least of length p and it is part of L₁.
 
-  According to the pumping lemma, the string can be split into three parts: x y^i z
+  According to the pumping lemma, the string can be split into x, y, and z, where |xy| <= p.
   y is the section of the string to be pumped (cannot be the empty string).
   Since |xy| <= p and the string begins with p occurrences of "a", the substring y must consist entirely of "a"s.
 
-  However, if the pumping string is all "a"s then there will be more "a"s than "b"s, which doesn't belong in L₁.
+  However, pumping changes the number of "a" while keeping the number of "b"s and "c"s. That means the number of "c"s
+  is no longer equal to the number of "a"s plus "b"s.
 
-  Therefore, a^p ++ b^p ++ c^2p fails the pumping lemma.
+  Therefore, a^p ++ b^p ++ c^(2p) fails the pumping lemma.
   Hence, L₁ is not a regular language.
 -/
 
@@ -92,14 +93,14 @@ Proof that L₂ is not regular (in English).
     As explained in q1, we have to find a string in L₂ of at least pumping length p that fails the
     pumping lemma.
 
-    Let's choose the string c^p ++ b^2p ++ a^4p. It is at least of length p and it is part of L₂.
+    Let's choose the string c^p ++ b^(2p) ++ a^(4p). It is at least of length p and it is part of L₂.
 
-    According to the pumping lemma, the string can be split into three parts: x y^i z
+    According to the pumping lemma, the string can be split into x, y, and z, where |xy| <= p.
     y is the section of the string to be pumped (cannot be the empty string).
     Since |xy| <= p and the string begins with p occurrences of "c", the substring y must consist entirely of "c"s.
 
-    If we pump the substring y (which is just "c"s), it will break the geometric ratio. The number
-    of "c"s will be over half the number of "b"s, which means it won't be part of L₂.
+    If we pump the substring y (which is just "c"s), then the number of "c"s changes while the number
+    of "b"s and "a"s stays the same. Therefore the equality w.count b = 2*(w.count c) is no longer true.
 
     Therefore, c^p ++ b^2p ++ a^4p fails the pumping lemma.
     Hence, L₂ is not a regular language.
