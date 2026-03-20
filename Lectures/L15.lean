@@ -76,16 +76,17 @@ end Ga
 namespace Ex
 inductive SigmaAB : Type where
 | a | b
+deriving Fintype, DecidableEq
 
 open SigmaAB
 
--- abbrev GG : CFG SigmaAB :=
--- {
---   NT := Fin 1
---   S := 0
---   P := { (0 , [inr a, inl 0, inr a] ),
---          (0 , [inr b, inl 0, inr b] ),
---          (0 , [])}
--- }
+abbrev GG : CFG SigmaAB :=
+{
+  NT := Fin 1
+  S := (0 : Fin 1)
+  P := { (0  , [inr (SigmaAB.a), inl (0 : Fin 1), inr (SigmaAB.a)] ),
+         (0  , [inr (SigmaAB.b), inl (0 : Fin 1), inr (SigmaAB.b)] ),
+         (0 , [])}
+}
 
--- end Ex
+end Ex
