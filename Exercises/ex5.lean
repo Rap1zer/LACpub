@@ -39,46 +39,63 @@ words in which every ⟨ is “closed” by a ⟩ occurring later in the word. F
 
 /- 1. Define a CFG for the language, you will also need to define an inductive type for the Non-terminals -/
 inductive NTPar : Type
--- E.g. | NT1 | NT2 | ...
+| S
 deriving Fintype, DecidableEq
 open NTPar
 
 abbrev GPar : CFG SigmaPar
-:= { NT := sorry
-     S := sorry
-     P := sorry
+:= { NT := NTPar
+     S := NTPar.S
+     P := {
+       (NTPar.S, []),
+       (NTPar.S, [inr SigmaPar.lpar, inl NTPar.S, inr SigmaPar.rpar, inl NTPar.S])
+     }
 }
 
 /- 2. Define a PDA for the language -/
 -- You need to define inductive types for the states and the stack alphabet
 inductive QPar : Type
--- E.g. | q0 | q1 | ...
+| q0 | qf
 deriving Fintype, DecidableEq
 open QPar
 
 inductive ΓPar : Type
--- E.g. | g0 | g1 | ...
+| hash | lmark
 deriving Fintype, DecidableEq
 open ΓPar
 
 abbrev PPar : PDA SigmaPar
-:= { Q := sorry
-     Γ := sorry
-     s := sorry
-     Z₀ := sorry
-     F := sorry
-     δ q x z := sorry
+:= { Q := QPar
+     Γ := ΓPar
+     s := q0
+     Z₀ := hash
+     F := { qf }
+     δ q x z :=
+       match q, x, z with
+       | q0, some SigmaPar.lpar, z  => { (q0, [lmark, z]) }
+       | q0, some SigmaPar.rpar, lmark => { (q0, []) }
+       | q0, none, ΓPar.hash => { (qf, [hash]) }
+       | _,  _, _ => {}
 }
 
 -- 3. Show that ⟨⟩⟨⟩ ∈ L PPar
 -- you can either do this by spelling out the sequence of IDs in a comment or by proving
 theorem e3 : [SigmaPar.lpar,SigmaPar.lpar, SigmaPar.rpar,SigmaPar.lpar,SigmaPar.rpar, SigmaPar.rpar] ∈ L PPar := by
-     sorry
+  sorry
 -- in Lean.
 
 /-
-⟨⟩⟨⟩ ∈ L PPar because:
-(q0, lpar lpar rpar lpar rpar rpar, hash) ->
-...
+⟨⟨⟩⟨⟩⟩ ∈ L PPar because:
+
+(q0, [lpar,lpar,rpar,lpar,rpar,rpar], [hash])
+-> (q0, [lpar,rpar,lpar,rpar,rpar], [lmark,hash])
+-> (q0, [rpar,lpar,rpar,rpar], [lmark,lmark,hash])
+-> (q0, [lpar,rpar,rpar], [lmark,hash])
+-> (q0, [rpar,rpar], [lmark,lmark,hash])
+-> (q0, [rpar], [lmark,hash])
+-> (q0, [], [hash])
+-> (qf, [], [hash])
+
+So PPar accepts [lpar,lpar,rpar,lpar,rpar,rpar]
 -/
 end ex5
